@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
+import { readFileSync } from 'node:fs'
 
 import tailwind from "tailwindcss";
 import autoprefixer from "autoprefixer";
@@ -20,6 +21,12 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  server: {
+    https: {
+      key: readFileSync('cert/localhost-key.pem'),
+      cert: readFileSync('cert/localhost.pem')
+    }
+  }
   
 });
 
