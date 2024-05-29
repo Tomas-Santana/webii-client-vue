@@ -3,6 +3,8 @@ import IndexView from '@/views/IndexView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ProtectedView from '@/views/ProtectedView.vue'
+import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
+import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import { isAuthenticated } from '@/lib/isAuthenticated'
 
 const router = createRouter({
@@ -28,6 +30,16 @@ const router = createRouter({
       path: '/protected',
       name: 'protected',
       component: ProtectedView
+    },
+    {
+      path: '/reset-password',
+      name: 'create-reset-password',
+      component: ResetPasswordView
+    },
+    {
+      path: '/create-reset-password',
+      name: 'reset-password',
+      component: CreateResetPasswordView
     }
   ]
 })

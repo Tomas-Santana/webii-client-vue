@@ -15,25 +15,24 @@ import { Input } from '@/components/ui/input'
 import { Button } from './ui/button'
 import { ref } from 'vue'
 import { LoaderCircle } from 'lucide-vue-next'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
 
-const loginFormSchema = toTypedSchema(z.object({
-    email: z.string({message: "El email es requerido"}).email("Introduce un email válido."),
-    password: z.string({message: "La contraseña es requerida"}).min(8, "La contraseña debe tener al menos 8 caracteres."),
+const createResetFormSchema = toTypedSchema(z.object({
+    email: z.string({ message: "El email es requerido" }).email("Introduce un email válido."),
 }))
 
 const loading = ref(false)
 const router = useRouter()
 
 const form = useForm({
-    validationSchema: loginFormSchema,
+    validationSchema: createResetFormSchema,
 })
 
 const onSubmit = form.handleSubmit(async (values) => {
     try {
         loading.value = true
-        const response = await fetch(apiRoutes.login, {
+        const response = await fetch(apiRoutes.createPasswordReset, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +44,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         const data = await response.json()
         console.log(data)
         if (response.ok) {
-            router.push('/protected')
+            router.push('/reset-password')
         } else {
             toast.error(data.message)
         }
@@ -68,24 +67,10 @@ const onSubmit = form.handleSubmit(async (values) => {
                 <FormMessage />
             </FormItem>
         </FormField>
-        <FormField v-slot="{ componentField }" name="password">
-            <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
-                    <Input type="password" v-bind="componentField" />
-                </FormControl>
-                <FormMessage />
-                <RouterLink to="/create-reset-password" class="text-sm hover:underline">
-                    ¿Olvidaste tu contraseña?
-                </RouterLink>
-            </FormItem>
-        </FormField>
         <Button type="submit" :disabled="loading">
             <LoaderCircle v-if="loading" class="w-4 h-4 animate-spin mr-2" />
-            Submit
+            Obtener código de recuperación
         </Button>
-        <RouterLink to="/register" class="text-sm ml-auto hover:underline">
-            ¿No tienes cuenta? Regístrate
-        </RouterLink>
+
     </form>
 </template>
