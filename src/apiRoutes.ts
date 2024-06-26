@@ -1,5 +1,6 @@
 const host = "https://127.0.0.1:3000";
 export default {
+  toProcess: `${host}/to-process`,
   login: `${host}/auth/login`,
   register: `${host}/auth/register`,
   logout: `${host}/auth/logout`,
