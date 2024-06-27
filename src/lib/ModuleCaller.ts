@@ -9,26 +9,26 @@ export function moduleCaller<T extends Object>(
         {},
         {
           get: function (target, prop: string) {
-            return new Proxy(
-              {},
-              {
-                apply: async function (target, thisArg, argumentsList) {
-                  const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      moduleName,
-                      className,
-                      functionName: prop,
-                      args: argumentsList,
-                    }),
-                  });
-                  return response.json();
+            return async (...args: any[]) => {
+              const methodName = prop;
+              const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
                 },
+                body: JSON.stringify({
+                  moduleName,
+                  className,
+                  methodName,
+                  args,
+                }),
+              });
+              const data = await response.json();
+              if (data.error) {
+                throw new Error(data.error.message);
               }
-            );
+              return data.data;
+            };
           },
         }
       );

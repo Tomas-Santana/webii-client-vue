@@ -5,6 +5,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import ProtectedView from '@/views/ProtectedView.vue'
 import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
+import CalculatorView from '@/views/CalculatorView.vue'
 import { isAuthenticated } from '@/lib/isAuthenticated'
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/create-reset-password',
       name: 'reset-password',
       component: CreateResetPasswordView
+    },
+    {
+      path: '/calculator',
+      name: 'calculator',
+      component: CalculatorView
     }
   ]
 })

@@ -11,7 +11,6 @@ import { toast } from 'vue-sonner';
 import apiRoutes from '@/apiRoutes';
 import { useRouter } from 'vue-router';
 import { moduleCaller } from '@/lib/ModuleCaller';
-import type { TestModuleType } from "../../../servidor/src/Modules/TestModule"
 
 const router = useRouter()
 const handleLogout = async () => {
@@ -26,8 +25,6 @@ const handleLogout = async () => {
     }
 }
 
-const testModule = moduleCaller<TestModuleType>(apiRoutes.toProcess, 'TestModule')
-testModule.TestClass.testAsyncFunction("hola").then(console.log)    
 </script>
 
 <template>
