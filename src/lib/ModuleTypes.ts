@@ -1,8 +1,8 @@
 export type CalculatorModuleType = {
     CalculatorClass: {
-        sum(a: number, b: number): Promise<number>;
-        subtract(a: number, b: number): Promise<number>;
-        multiply(a: number, b: number): Promise<number>;
-        divide(a: number, b: number): Promise<number>;
+        sum(a: number, b: number): number
+        sub(a: number, b: number):  number
+        mul(a: number, b: number): number;
+        div(a: number, b: number): number
     }
 };

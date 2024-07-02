@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {moduleCaller} from "../lib/ModuleCaller"
+import {moduleCaller} from "../lib/ModuleCaller/ModuleCaller"
 import apiRoutes from "@/apiRoutes";
 import type { CalculatorModuleType } from "../lib/ModuleTypes"
 import { ref } from "vue";
@@ -15,9 +15,9 @@ const operation = ref<"+" | "-" | "*" | "/">("+");
 async function calculate(operation: "+" | "-" | "*" | "/", firstNumber: number, secondNumber: number) {
     const functions = {
         "+": calculatorModule.CalculatorClass.sum,
-        "-": calculatorModule.CalculatorClass.subtract,
-        "*": calculatorModule.CalculatorClass.multiply,
-        "/": calculatorModule.CalculatorClass.divide
+        "-": calculatorModule.CalculatorClass.sub,
+        "*": calculatorModule.CalculatorClass.mul,
+        "/": calculatorModule.CalculatorClass.div
     }
     try {
         const response = await functions[operation](firstNumber, secondNumber);

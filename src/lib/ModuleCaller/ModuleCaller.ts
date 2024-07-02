@@ -1,8 +1,10 @@
+import type { Promisify } from "./Promisify";
+
 export function moduleCaller<T extends Object>(
   url: string,
   moduleName: string
 ) {
-  return new Proxy({} as T, {
+  return new Proxy({} as Promisify<T>, {
     get: function (target, prop: string) {
       const className = prop;
       return new Proxy(

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'vue-sonner';
 import apiRoutes from '@/apiRoutes';
 import { useRouter } from 'vue-router';
-import { moduleCaller } from '@/lib/ModuleCaller';
+import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
 
 const router = useRouter()
 const handleLogout = async () => {
