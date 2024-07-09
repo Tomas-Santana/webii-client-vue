@@ -18,6 +18,7 @@ export function moduleCaller<T extends Object>(
                 headers: {
                   "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify({
                   moduleName,
                   className,

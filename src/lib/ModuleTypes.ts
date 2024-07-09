@@ -6,3 +6,19 @@ export type CalculatorModuleType = {
         div(a: number, b: number): number
     }
 };
+
+export type ProjectModuleType = {
+    ProjectManager: {
+        logSession(): void
+        createProject(name: string): {
+            success: boolean
+            message: string
+            id: number
+        }
+        getProjects(): {
+            success: boolean
+            message: string
+            projects: any[]
+        }
+    }
+}

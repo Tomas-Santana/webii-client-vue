@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import IndexView from '@/views/IndexView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import ProtectedView from '@/views/ProtectedView.vue'
+import HomeView from '@/views/HomeView.vue'
 import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import CalculatorView from '@/views/CalculatorView.vue'
@@ -28,9 +28,9 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-      path: '/protected',
-      name: 'protected',
-      component: ProtectedView
+      path: '/home',
+      name: 'home',
+      component: HomeView
     },
     {
       path: '/reset-password',
@@ -51,7 +51,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  if (to.name === 'protected') {
+  if (to.name === 'home') {
     const auth = await isAuthenticated()
     if (!auth) {
       return '/login'

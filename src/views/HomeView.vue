@@ -11,6 +11,8 @@ import { toast } from 'vue-sonner';
 import apiRoutes from '@/apiRoutes';
 import { useRouter } from 'vue-router';
 import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
+import { type ProjectModuleType } from '@/lib/ModuleTypes';
+import NewProjectForm from '@/components/NewProjectForm.vue';
 
 const router = useRouter()
 const handleLogout = async () => {
@@ -23,6 +25,11 @@ const handleLogout = async () => {
     } else {
         toast.error('Error al cerrar sesión')
     }
+}
+
+const logOnServer = async () => {
+    const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess,'ProjectModule')
+    await ProjectModule.ProjectManager.logSession()
 }
 
 </script>
@@ -38,13 +45,10 @@ const handleLogout = async () => {
                     Esta es una vista protegida
                 </CardDescription>
                 <CardContent class="flex mt-4 flex-col gap-2">
-                    <Button @click="toast.success('Wuuuuuu!')" class="flex-1">
-                        A celebrar
-                    </Button>
                     <Button @click="handleLogout" variant="destructive"class="flex-1">
                         Cerrar sesión
                     </Button>
-
+                    <NewProjectForm />
                 </CardContent>
             </CardHeader>
         </Card>
