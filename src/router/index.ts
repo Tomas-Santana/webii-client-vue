@@ -6,7 +6,12 @@ import ProtectedView from '@/views/ProtectedView.vue'
 import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import CalculatorView from '@/views/CalculatorView.vue'
+import MiembrosView from '@/views/MiembrosView.vue'
+import PrincipalView from '@/views/PrincipalView.vue'
 import { isAuthenticated } from '@/lib/isAuthenticated'
+import ProyectosView from '@/views/ProyectosView.vue'
+import ActividadesView from '@/views/ActividadesView.vue'
+import TiempoView from '@/views/TiempoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +19,39 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: IndexView
+      component: IndexView,
+      children: [
+        {
+          path: '/calculator',
+          name: 'calculator',
+          component: CalculatorView
+        },
+        {
+          path: '/miembros',
+          name: 'miembros',
+          component: MiembrosView
+        },
+        {
+          path: '/principal',
+          name: 'principal',
+          component: PrincipalView
+        },
+        {
+          path: '/proyecto',
+          name: 'proyecto',
+          component: ProyectosView
+        },
+        {
+          path: '/actividades',
+          name: 'actividades',
+          component: ActividadesView
+        },
+        {
+          path: '/tiempo',
+          name: 'tiempo',
+          component: TiempoView
+        }
+      ]
     },
     {
       path: '/login',
@@ -41,12 +78,8 @@ const router = createRouter({
       path: '/create-reset-password',
       name: 'reset-password',
       component: CreateResetPasswordView
-    },
-    {
-      path: '/calculator',
-      name: 'calculator',
-      component: CalculatorView
     }
+    
   ]
 })
 
