@@ -84,11 +84,15 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  if (to.name === 'protected') {
-    const auth = await isAuthenticated()
-    if (!auth) {
-      return '/login'
-    }
+  const freeViews = ['login', 'register', 'create-reset-password', 'reset-password']
+  // if (to.name === 'protected') {
+  //   const auth = await isAuthenticated()
+  //   if (!auth) {
+  //     return '/login'
+  //   }
+  // }
+  if (!freeViews.includes(to.name?.toString() ?? "") && !await isAuthenticated()) {
+    return '/login'
   }
 })
 

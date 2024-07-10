@@ -31,7 +31,7 @@
   
   <script>
   export default {
-    name: 'DataTable',
+    name: 'DataTableMembers',
     data() {
       return {
         users: [
