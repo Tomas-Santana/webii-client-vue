@@ -27,10 +27,17 @@ const handleLogout = async () => {
     }
 }
 
+const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess,'ProjectModule')
 const logOnServer = async () => {
-    const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess,'ProjectModule')
     await ProjectModule.ProjectManager.logSession()
 }
+
+import { onMounted } from 'vue'
+onMounted(async () => {
+    const res = await ProjectModule.ProjectManager.getProjects()
+    console.log(res)
+
+})
 
 </script>
 

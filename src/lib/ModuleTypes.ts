@@ -1,3 +1,5 @@
+import { type Project } from "./CustomTypes";
+
 export type CalculatorModuleType = {
     CalculatorClass: {
         sum(a: number, b: number): number
@@ -18,7 +20,7 @@ export type ProjectModuleType = {
         getProjects(): {
             success: boolean
             message: string
-            projects: any[]
+            projects: Project[]
         }
     }
 }
