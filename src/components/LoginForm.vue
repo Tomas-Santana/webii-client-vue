@@ -46,6 +46,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         console.log(data)
         if (response.ok) {
             router.push('/proyecto')
+
         } else {
             toast.error(data.message)
         }
