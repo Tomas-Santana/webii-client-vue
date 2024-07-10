@@ -45,7 +45,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         const data = await response.json()
         console.log(data)
         if (response.ok) {
-            router.push('/proyecto')
+            router.push('/protected')
         } else {
             toast.error(data.message)
         }
