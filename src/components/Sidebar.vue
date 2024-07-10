@@ -1,26 +1,5 @@
 <script>
-export default {
-  methods: {
-    navigateToCalculator() {
-      this.$router.push('/calculator');
-    },
-    navigateToMembers() {
-      this.$router.push('/miembros');
-    },
-    navigateToPrincipals() {
-      this.$router.push('/principal');
-    },
-    navigateToActividades() {
-      this.$router.push('/actividades');
-    },
-    navigateToTime() {
-      this.$router.push('/tiempo');
-    },
-    navigateToProject() {
-      this.$router.push('/proyecto');
-    } 
-  }
-}
+import { RouterLink } from 'vue-router';
 
 </script>
 
@@ -45,23 +24,28 @@ export default {
         <div class="h-[calc(100vh-95px)] bg-white">
             <!-- Submenu -->
             <div class="flex flex-col space-y-[10px] items-center">
-                <div @click="navigateToPrincipals" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                <div>
+                    <RouterLink to="/principal" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div class="grid place-items-center mr-4">
                         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.75 5.25C10.375 2.78282 12.7356 1.52305 17.875 1.5C17.9572 1.49969 18.0386 1.51565 18.1145 1.54695C18.1905 1.57825 18.2595 1.62427 18.3176 1.68237C18.3757 1.74047 18.4218 1.80949 18.4531 1.88546C18.4844 1.96143 18.5003 2.04284 18.5 2.125V13.375C18.5 13.5408 18.4342 13.6997 18.3169 13.8169C18.1997 13.9342 18.0408 14 17.875 14C12.875 14 10.9434 15.0082 9.75 16.5M9.75 5.25C9.125 2.78282 6.76446 1.52305 1.625 1.5C1.54284 1.49969 1.46143 1.51565 1.38546 1.54695C1.30949 1.57825 1.24047 1.62427 1.18237 1.68237C1.12427 1.74047 1.07825 1.80949 1.04695 1.88546C1.01565 1.96143 0.999695 2.04284 1 2.125V13.2996C1 13.6856 1.23907 14 1.625 14C6.625 14 8.56367 15.0156 9.75 16.5M9.75 5.25V16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>Pagina principal
+                    </div>
+                    Pagina principal</RouterLink>
                 </div>
-                <div @click="navigateToProject" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                <div>
+                    <RouterLink to="/proyecto" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div class="grid place-items-center mr-4">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg ">
                             <path d="M2.5 7.5V4.6875C2.5 4.2731 2.66462 3.87567 2.95765 3.58265C3.25067 3.28962 3.6481 3.125 4.0625 3.125H7.02695C7.33546 3.12501 7.63707 3.21635 7.89375 3.3875L8.98125 4.1125C9.23793 4.28365 9.53954 4.37499 9.84805 4.375H15.9375C16.3519 4.375 16.7493 4.53962 17.0424 4.83265C17.3354 5.12567 17.5 5.5231 17.5 5.9375V7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M18.7462 8.84961L18.1126 15.3125C18.1126 15.7264 17.9483 16.1234 17.6559 16.4164C17.3635 16.7093 16.9667 16.8743 16.5528 16.875H3.44733C3.03341 16.8743 2.63668 16.7093 2.34425 16.4164C2.05181 16.1234 1.88757 15.7264 1.88757 15.3125L1.25398 8.84961C1.24022 8.67761 1.26224 8.50462 1.31862 8.34154C1.37501 8.17846 1.46454 8.02882 1.5816 7.90204C1.69865 7.77526 1.84069 7.67409 1.99876 7.6049C2.15683 7.53571 2.32752 7.49999 2.50007 7.5H17.504C17.6762 7.50053 17.8465 7.53664 18.0041 7.60607C18.1617 7.6755 18.3032 7.77675 18.4199 7.90347C18.5365 8.03019 18.6257 8.17965 18.6818 8.34246C18.738 8.50527 18.7599 8.67793 18.7462 8.84961Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </div>Administrar proyectos
+                    </div>
+                    Administrar proyectos</RouterLink>
                 </div>
-                <div @click="navigateToCalculator" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div   class="grid place-items-center mr-4">
+                <div>
+                    <RouterLink to="/calculator" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                    <div  class="grid place-items-center mr-4">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.7031 6.5625C15.5886 8.15117 14.4101 9.375 13.1249 9.375C11.8398 9.375 10.6593 8.15156 10.5468 6.5625C10.4296 4.90977 11.5769 3.75 13.1249 3.75C14.673 3.75 15.8202 4.93984 15.7031 6.5625Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M13.1251 11.875C10.5794 11.875 8.13134 13.1395 7.51806 15.602C7.43681 15.9277 7.6411 16.25 7.97587 16.25H18.2747C18.6095 16.25 18.8126 15.9277 18.7325 15.602C18.1192 13.1 15.6712 11.875 13.1251 11.875Z" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"/>
@@ -69,7 +53,7 @@ export default {
                             <path d="M8.04677 11.9531C7.34169 11.6301 6.56513 11.5059 5.74208 11.5059C3.71083 11.5059 1.7538 12.5156 1.26357 14.4824C1.19911 14.7426 1.36239 15 1.62958 15H6.01552" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    Administrar usuarios del sistema
+                    Administrar usuarios del sistema</RouterLink>
                 </div>
                 <hr class="my-4 md:min-w-[360px]">
                 <!-- Select -->
@@ -77,18 +61,15 @@ export default {
                     <option disabled>nose</option>
                 </select>
                  <!-- Submenu -->
-                <div @click="navigateToMembers" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Miembros
-                </div>
-                <div @click="navigateToActividades" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Actividades
-                </div>
-                <div @click="navigateToTime" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Hoja de tiempo
-                </div>
+                <RouterLink to="/miembros" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                    Miembros
+                </RouterLink>
+                <RouterLink to="/actividades" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                    Actividades
+                </RouterLink>
+                <RouterLink to="/tiempo" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                    Hoja de tiempo
+                </RouterLink>
 
                 
             </div>
