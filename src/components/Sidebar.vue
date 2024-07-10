@@ -1,12 +1,37 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
+import { type ProjectModuleType } from '@/lib/ModuleTypes';
+import apiRoutes from '@/apiRoutes';
+import { toast } from 'vue-sonner';
+import { ref } from 'vue';
+import { projectsStore } from '@/stores/projectsStore';
+import ProjectSelect from './Sidebar/ProjectSelect.vue';
+
+const ProjectModule = moduleCaller<ProjectModuleType>(
+    apiRoutes.toProcess,
+    "ProjectModule"
+);
+
+
+
+const getProjects = async () => {
+    const res = await ProjectModule.ProjectManager.getProjects();
+    if (!res.success) {
+        toast.error(res.message);
+    }
+    console.log(res.projects);
+    projectsStore.projects = res.projects;
+
+}
+getProjects();
 
 </script>
 
 
 <template>
     <!-- Sidebar -->
-    <div class="w-[390px] h-full bg-white drop-shadow-md">
+    <div class="w-[390px] h-full bg-white drop-shadow-md px-4">
         <!-- Header Sidebar -->
         <div class="flex items-center h-[95px] bg-white font-black text-2xl p-8">
             <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -51,11 +76,9 @@ import { RouterLink } from 'vue-router';
                     Administrar usuarios del sistema
                 </RouterLink>
                 <hr class="my-4 md:min-w-[360px]">
-                <!-- Select -->
-                <select name="" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[360px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option disabled>nose</option>
-                </select>
-                 <!-- Submenu -->
+                <ProjectSelect
+                    :projects="projectsStore.projects"
+                ></ProjectSelect>
                 <RouterLink to="miembros" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div class="grid place-items-center mr-4">
                     </div>Miembros

@@ -18,7 +18,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'index',
       component: IndexView,
       children: [
         {
@@ -85,12 +85,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const freeViews = ['login', 'register', 'create-reset-password', 'reset-password']
-  // if (to.name === 'protected') {
-  //   const auth = await isAuthenticated()
-  //   if (!auth) {
-  //     return '/login'
-  //   }
-  // }
   if (!freeViews.includes(to.name?.toString() ?? "") && !await isAuthenticated()) {
     return '/login'
   }

@@ -22,5 +22,14 @@ export type ProjectModuleType = {
             message: string
             projects: Project[]
         }
+        getProjectsFromName(name: string): {
+            success: boolean
+            message: string
+            projects: Project[]
+        }
+        deleteProject(id: number): {
+            success: boolean
+            message: string
+        }
     }
 }

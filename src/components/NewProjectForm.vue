@@ -20,6 +20,8 @@ import { toast } from 'vue-sonner'
 import { moduleCaller } from "@/lib/ModuleCaller/ModuleCaller"
 import { type ProjectModuleType } from '@/lib/ModuleTypes'
 
+const emit = defineEmits(["close"])
+
 const newProjectFormSchema = toTypedSchema(z.object({
   name: z.string({ message: "El nombre es requerido" }).min(3, { message: "El nombre debe tener al menos 3 caracteres" }).max(50, { message: "El nombre debe tener menos de 50 caracteres" })
 }))
@@ -42,6 +44,8 @@ const onSubmit = form.handleSubmit(async (values) => {
     toast.error("Error al crear el proyecto")
   }
   loading.value = false
+  emit("close")
+
 })
 
 
