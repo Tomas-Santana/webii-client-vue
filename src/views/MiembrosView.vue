@@ -5,10 +5,10 @@
   </template>
   
   <script>
-  import DataTable from '@/components/DataTableUsuarios.vue';
+  import DataTable from '@/components/DataTableMembers.vue';
   
   export default {
-    name: 'CalculatorView',
+    name: 'MiembrosView',
     components: {
       DataTable
     }

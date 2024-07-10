@@ -23,8 +23,8 @@ export default defineConfig({
   },
   server: {
     https: {
-      key: readFileSync('cert/localhost-key.pem'),
-      cert: readFileSync('cert/localhost.pem')
+     key: readFileSync('cert/localhost-key.pem'),
+     cert: readFileSync('cert/localhost.pem')
     }
   }
   
