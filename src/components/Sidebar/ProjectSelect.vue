@@ -8,26 +8,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import type { Project } from '@/lib/CustomTypes';
+import { projectsStore } from '@/stores/projectsStore';
 
-defineProps<{
-  projects: Project[]
-}>()
+const handleUpdate = (value: string) => {
+  projectsStore.currentProject = projectsStore.projects.find(project => project.id === parseInt(value))!;
 
+}
 </script>
 
 <template>
-  <Select>
+  <Select 
+    @update:model-value="handleUpdate($event)"
+  >
     <SelectTrigger class="w-full">
-      <SelectValue placeholder="Tus proyectos" />
+      <SelectValue placeholder="Selecciona un proyecto" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>
-        <SelectLabel>Proyectos</SelectLabel>
-        <SelectItem v-for="project in projects" :key="project.id" :value="project.id.toString()">
+        <SelectLabel>Mis proyectos</SelectLabel>
+        <SelectItem v-for="project in projectsStore.projects" :key="project.id" :value="project.id.toString()">
           {{ project.name }}
         </SelectItem>
-        
       </SelectGroup>
     </SelectContent>
   </Select>

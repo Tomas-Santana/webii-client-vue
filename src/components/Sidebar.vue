@@ -6,8 +6,8 @@ import apiRoutes from '@/apiRoutes';
 import { toast } from 'vue-sonner';
 import { ref } from 'vue';
 import { projectsStore } from '@/stores/projectsStore';
+import ProjectOptions from '@/components/Sidebar/ProjectOptions.vue';
 import ProjectSelect from './Sidebar/ProjectSelect.vue';
-
 const ProjectModule = moduleCaller<ProjectModuleType>(
     apiRoutes.toProcess,
     "ProjectModule"
@@ -49,14 +49,14 @@ getProjects();
         <div class="h-[calc(100vh-95px)] bg-white">
             <!-- Submenu -->
             <div class="flex flex-col space-y-[10px] items-center">
-                <RouterLink to="principal" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                <RouterLink to="/principal" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div class="grid place-items-center mr-4">
                         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.75 5.25C10.375 2.78282 12.7356 1.52305 17.875 1.5C17.9572 1.49969 18.0386 1.51565 18.1145 1.54695C18.1905 1.57825 18.2595 1.62427 18.3176 1.68237C18.3757 1.74047 18.4218 1.80949 18.4531 1.88546C18.4844 1.96143 18.5003 2.04284 18.5 2.125V13.375C18.5 13.5408 18.4342 13.6997 18.3169 13.8169C18.1997 13.9342 18.0408 14 17.875 14C12.875 14 10.9434 15.0082 9.75 16.5M9.75 5.25C9.125 2.78282 6.76446 1.52305 1.625 1.5C1.54284 1.49969 1.46143 1.51565 1.38546 1.54695C1.30949 1.57825 1.24047 1.62427 1.18237 1.68237C1.12427 1.74047 1.07825 1.80949 1.04695 1.88546C1.01565 1.96143 0.999695 2.04284 1 2.125V13.2996C1 13.6856 1.23907 14 1.625 14C6.625 14 8.56367 15.0156 9.75 16.5M9.75 5.25V16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>Pagina principal
                 </RouterLink>
-                <RouterLink to="proyecto" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                <RouterLink to="/proyecto" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div class="grid place-items-center mr-4">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg ">
                             <path d="M2.5 7.5V4.6875C2.5 4.2731 2.66462 3.87567 2.95765 3.58265C3.25067 3.28962 3.6481 3.125 4.0625 3.125H7.02695C7.33546 3.12501 7.63707 3.21635 7.89375 3.3875L8.98125 4.1125C9.23793 4.28365 9.53954 4.37499 9.84805 4.375H15.9375C16.3519 4.375 16.7493 4.53962 17.0424 4.83265C17.3354 5.12567 17.5 5.5231 17.5 5.9375V7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,7 +64,7 @@ getProjects();
                         </svg>
                     </div>Administrar proyectos
                 </RouterLink>
-                <RouterLink to="calculator" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
+                <RouterLink to="/calculator" role="button" tabindex="0" class="flex items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
                     <div   class="grid place-items-center mr-4">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.7031 6.5625C15.5886 8.15117 14.4101 9.375 13.1249 9.375C11.8398 9.375 10.6593 8.15156 10.5468 6.5625C10.4296 4.90977 11.5769 3.75 13.1249 3.75C14.673 3.75 15.8202 4.93984 15.7031 6.5625Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -76,23 +76,9 @@ getProjects();
                     Administrar usuarios del sistema
                 </RouterLink>
                 <hr class="my-4 md:min-w-[360px]">
-                <ProjectSelect
-                    :projects="projectsStore.projects"
-                ></ProjectSelect>
-                <RouterLink to="miembros" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Miembros
-                </RouterLink>
-                <RouterLink to="actividades" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Actividades
-                </RouterLink>
-                <RouterLink to="tiempo" role="button" tabindex="0" class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none">
-                    <div class="grid place-items-center mr-4">
-                    </div>Hoja de tiempo
-                </RouterLink>
+                <ProjectSelect />
+                <ProjectOptions />
 
-                
             </div>
         </div>
     </div>

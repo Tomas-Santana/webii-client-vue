@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@tanstack/vue-table": "^8.19.2",
     "@vee-validate/zod": "^4.12.8",
     "@vueuse/core": "^10.10.0",
     "class-variance-authority": "^0.7.0",

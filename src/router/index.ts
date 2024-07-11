@@ -27,7 +27,7 @@ const router = createRouter({
           component: CalculatorView
         },
         {
-          path: '/miembros',
+          path: ':id/miembros',
           name: 'miembros',
           component: MiembrosView
         },
@@ -42,12 +42,12 @@ const router = createRouter({
           component: ProyectosView
         },
         {
-          path: '/actividades',
+          path: ':id/actividades',
           name: 'actividades',
           component: ActividadesView
         },
         {
-          path: '/tiempo',
+          path: ':id/tiempo',
           name: 'tiempo',
           component: TiempoView
         }

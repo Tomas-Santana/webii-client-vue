@@ -28,6 +28,7 @@ const registerFormSchema = toTypedSchema(z.object({
     password: z.string().min(8, "La contraseña debe tener al menos 8 caracteres."),
     name: z.string().min(3, "El nombre debe tener al menos 3 caracteres."),
     surname: z.string().min(3, "El apellido debe tener al menos 3 caracteres."),
+    cedula: z.number({message: "La cedula debe ser numerica"}).min(2, "La cédula debe tener al menos 2 caracteres."),
 }))
 
 const form = useForm({
@@ -81,6 +82,15 @@ const onSubmit = form.handleSubmit(async (values) => {
                 </FormItem>
             </FormField>
         </div>
+        <FormField v-slot="{ componentField }" name="cedula">
+            <FormItem>
+                <FormLabel>Cedula de Identidad</FormLabel>
+                <FormControl>
+                    <Input type="number" placeholder="12345678" v-bind="componentField" />
+                </FormControl>
+                <FormMessage />
+            </FormItem>
+        </FormField>
         <FormField v-slot="{ componentField }" name="email">
             <FormItem>
                 <FormLabel>Email</FormLabel>

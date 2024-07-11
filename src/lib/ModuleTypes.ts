@@ -1,4 +1,4 @@
-import { type Project } from "./CustomTypes";
+import { type Member, type Person, type Project } from "./CustomTypes";
 
 export type CalculatorModuleType = {
     CalculatorClass: {
@@ -32,4 +32,29 @@ export type ProjectModuleType = {
             message: string
         }
     }
+    MemberManager: {
+        getProjectMembers(projectId: number): {
+            success: boolean
+            message: string
+            members: Member[]
+        }
+        deleteMember(projectId: number, cedula: number): {
+            success: boolean
+            message: string
+        }
+        insertMember(projectId: number, cedula: number): {
+            success: boolean
+            message: string
+        }
+    }
 }
+
+export type UserModuleType = {
+    PeopleManager: {
+        getPeople(): {
+            success: boolean
+            message: string
+            people: Person[]
+        }
+    }
+} 
