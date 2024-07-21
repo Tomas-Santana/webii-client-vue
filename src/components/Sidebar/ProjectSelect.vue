@@ -19,6 +19,7 @@ const handleUpdate = (value: string) => {
 <template>
   <Select 
     @update:model-value="handleUpdate($event)"
+    
   >
     <SelectTrigger class="w-full">
       <SelectValue placeholder="Selecciona un proyecto" />

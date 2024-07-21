@@ -13,14 +13,23 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { computed, type ComputedRef } from 'vue';
+import { LoaderCircle } from 'lucide-vue-next';
 import type { Member } from "@/lib/CustomTypes";
-import { h } from 'vue'
+import { h, ref, watch } from 'vue'
 import { Trash } from "lucide-vue-next";
 import { moduleCaller } from "@/lib/ModuleCaller/ModuleCaller";
 import { type ProjectModuleType } from "@/lib/ModuleTypes";
 import apiRoutes from "@/apiRoutes";
-import { projectsStore } from "@/stores/projectsStore";
 import { toast } from 'vue-sonner';
+import { currentUserStore } from '@/stores/currentUserStore';
+
+const props = defineProps<{
+  data: Member[]
+  projectId: number
+  allowDelete: boolean
+}>()
+console.log(props.allowDelete)
 
 const deleteMember = async (projectId: number | undefined, cedula: number) => {
   if (!projectId) return
@@ -34,7 +43,7 @@ const deleteMember = async (projectId: number | undefined, cedula: number) => {
   emit("refetch")
 }
 
-const columns: ColumnDef<Member>[] = [
+const certainColumns: ColumnDef<Member>[] = [
   {
     accessorKey: "first_name",
     header: "Nombre",
@@ -60,9 +69,13 @@ const columns: ColumnDef<Member>[] = [
     header: "Cédula",
   },
   {
+    id: "delete",
     accessorKey: "id",
     header: "Eliminar",
     cell: ({ row }) => {
+      if (row.original.email === currentUserStore.email) {
+        return null;
+      }
       return h(Trash, {
         class: "cursor-pointer text-red-500", onClick: () => {
           console.log(row.original.cedula)
@@ -73,18 +86,26 @@ const columns: ColumnDef<Member>[] = [
   }
 ];
 
-const props = defineProps<{
-  data: Member[]
-  projectId: number
-}>()
+const columns = ref([...certainColumns])
+
 
 const emit = defineEmits(["refetch"])
 
 const table = useVueTable({
   get data() { return props.data },
-  columns: columns,
+  columns: columns.value,
   getCoreRowModel: getCoreRowModel(),
+  state: {
+  }
 })
+
+watch(() => props.allowDelete, (newVal) => {
+  console.log("allowDel in Table", newVal)
+  table.setColumnVisibility({
+    delete: newVal
+  })
+  console.log(table.getIsAllColumnsVisible())
+}, { immediate: true })
 
 </script>
 
@@ -111,7 +132,10 @@ const table = useVueTable({
         <template v-else>
           <TableRow>
             <TableCell :colspan="columns.length" class="h-24 text-center">
-              No results.
+              <div class="w-full grid place-items-center">
+
+                <LoaderCircle class="animate-spin"/>
+              </div>
             </TableCell>
           </TableRow>
         </template>

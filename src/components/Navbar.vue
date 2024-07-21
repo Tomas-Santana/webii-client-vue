@@ -10,29 +10,15 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'vue-sonner';
 import apiRoutes from '@/apiRoutes';
 import { useRouter } from 'vue-router';
+import AvatarDropdown from '@/components/Navbar/AvatarDropdown.vue';
 
 const router = useRouter()
-const handleLogout = async () => {
-  const response = await fetch(apiRoutes.logout, {
-    method: 'GET',
-    credentials: 'include'
-  })
-  if (response.ok) {
-    router.push('/login')
-  } else {
-    toast.error('Error al cerrar sesión')
-  }
-}
+
 
 </script>
 
 <template>
   <div class="h-14 flex items-center justify-end p-2 bg-white">
-    <Button
-      @click="handleLogout"
-      variant="destructive"
-    >
-      Cerrar sesión
-  </Button>
+    <AvatarDropdown />
   </div>
 </template>

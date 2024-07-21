@@ -30,6 +30,8 @@ import Button from "../ui/button/Button.vue";
 import Checkbox from "../ui/checkbox/Checkbox.vue";
 import { useRoute } from "vue-router";
 
+
+
 const route = useRoute()
 const open = ref(false)
 const emit = defineEmits(["refetch"])
@@ -68,6 +70,7 @@ const columns: ColumnDef<Person>[] = [
 
 const props = defineProps<{
   data: Person[]
+  roleId: number
 }>()
 
 const columnFilters = ref<ColumnFiltersState>([])
@@ -88,6 +91,10 @@ const table = useVueTable({
 
 
 const addMembers = async () => {
+  if (!props.roleId ) {
+    toast.error("No se ha seleccionado ningún rol")
+    return
+  }
   if (Object.keys(rowSelection.value).length === 0) {
     toast.error("No se ha seleccionado ningún miembro")
     return
@@ -95,11 +102,11 @@ const addMembers = async () => {
   const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess, "ProjectModule");
   for (const [key, _] of Object.entries(rowSelection.value)) {
     const person = props.data[Number(key)]
-    const response = await ProjectModule.MemberManager.insertMember(Number(route.params.id), person.cedula)
+    const response = await ProjectModule.MemberManager.insertMember(Number(route.params.id), person.cedula, props.roleId)
     if (response.success) {
       toast.success(`Miembro ${person.first_name + " " + person.last_name} agregado exitosamente`)
     } else {
-      toast.error(`Error al agregar miembro ${person.first_name + " " + person.last_name}`)
+      toast.error(`Error al agregar miembro ${person.first_name + " " + person.last_name}. ${response.message ?? ""}`)
     }
   }
   emit("refetch")
@@ -110,11 +117,7 @@ const addMembers = async () => {
 
 <template>
   <div class="flex flex-col gap-4">
-    <!-- <div class="flex items-center">
-      <Input class="max-w-sm" type="number" placeholder="Filter emails..."
-        :model-value="table.getColumn('cedula')?.getFilterValue() as number"
-        @update:model-value="table.getColumn('cedula')?.setFilterValue($event)" />
-    </div> -->
+
     <div class="border rounded-md relative">
       <Table class="">
         <TableHeader>
@@ -137,7 +140,7 @@ const addMembers = async () => {
           <template v-else>
             <TableRow>
               <TableCell :colspan="columns.length" class="h-24 text-center">
-                No results.
+                Sin personas disponibles
               </TableCell>
             </TableRow>
           </template>

@@ -17,6 +17,7 @@ import { ref } from 'vue'
 import { LoaderCircle } from 'lucide-vue-next'
 import { RouterLink, useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
+import { currentUserStore } from '@/stores/currentUserStore'
 
 const loginFormSchema = toTypedSchema(z.object({
     email: z.string({message: "El email es requerido"}).email("Introduce un email válido."),
@@ -42,10 +43,23 @@ const onSubmit = form.handleSubmit(async (values) => {
             credentials: 'include'
         })
         console.log(response)
-        const data = await response.json()
+        interface LoginResponse {
+            message: string
+            userInfo: {
+                id: number,
+                email: string,
+                first_name: string,
+                last_name: string,
+            }
+        }
+        const data: LoginResponse = await response.json()
         console.log(data)
         if (response.ok) {
-            router.push('/proyecto')
+            currentUserStore.email = data.userInfo.email
+            currentUserStore.first_name = data.userInfo.first_name
+            currentUserStore.last_name = data.userInfo.last_name
+            currentUserStore.id = data.userInfo.id
+            router.push('/select-profile')
 
         } else {
             toast.error(data.message)

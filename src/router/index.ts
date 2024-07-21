@@ -5,13 +5,13 @@ import RegisterView from '@/views/RegisterView.vue'
 import HomeView from '@/views/HomeView.vue'
 import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
-import CalculatorView from '@/views/CalculatorView.vue'
 import MiembrosView from '@/views/MiembrosView.vue'
 import PrincipalView from '@/views/PrincipalView.vue'
 import { isAuthenticated } from '@/lib/isAuthenticated'
 import ProyectosView from '@/views/ProyectosView.vue'
 import ActividadesView from '@/views/ActividadesView.vue'
 import TiempoView from '@/views/TiempoView.vue'
+import SelectProfileView from '@/views/SelectProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,11 +21,6 @@ const router = createRouter({
       name: 'index',
       component: IndexView,
       children: [
-        {
-          path: '/calculator',
-          name: 'calculator',
-          component: CalculatorView
-        },
         {
           path: ':id/miembros',
           name: 'miembros',
@@ -54,6 +49,11 @@ const router = createRouter({
       ]
     },
     {
+      path: ':projectId/actividades/:activityId',
+      name: 'actividad',
+      component: ActividadesView
+    },
+    {
       path: '/login',
       name: 'login',
       component: LoginView,
@@ -68,6 +68,11 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: "/select-profile",
+      name: "select-profile",
+      component: SelectProfileView
     },
     {
       path: '/reset-password',
