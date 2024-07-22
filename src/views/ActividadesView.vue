@@ -2,7 +2,7 @@
 import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
 import { type ProjectModuleType } from '@/lib/ModuleTypes';
 import apiRoutes from '@/apiRoutes';
-import type { Objective, ProjectTreeEntry, ProjectTree } from '@/lib/CustomTypes';
+import type { Objective, ProjectTreeEntry, ProjectTree, Member } from '@/lib/CustomTypes';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { projectsStore } from '@/stores/projectsStore';
@@ -10,8 +10,7 @@ import AddObjectiveDialog from '@/components/Actividades/AddObjectiveDialog.vue'
 import type { ViewOptions } from '@/lib/MenuOptions';
 import { useProjectMenuOptions } from '@/lib/useMenuOptions';
 import AddActivityDialog from '@/components/Actividades/AddActivityDialog.vue';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-vue-next';
+import ObjectiveCard from '@/components/Actividades/ObjectiveCard.vue';
 
 const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess, "ProjectModule");
 const projectEntries = ref<ProjectTreeEntry[]>([])
@@ -21,19 +20,31 @@ const createActivityDialogOpen = ref(false)
 
 const { options } = useProjectMenuOptions<ViewOptions["ActivitiesView"]>("ActivitiesView", Number(route.params.id.toString()))
 
-const getObjectives = async () => {
+const getProjectTree = async () => {
+  const projectId = parseInt(route.params.id?.toString())
+  if (!projectId) return
   const response = await ProjectModule.ObjectiveManager.getProjectTree(
-    parseInt(route.params.id.toString())
+    projectId
   );
   console.log(response)
   if (response.success) {
     projectEntries.value = response.projectTree
   }
 }
-getObjectives()
+getProjectTree()
+
+const members = ref<Member[]>([]);
+const getMembers = async () => {
+  const res = await ProjectModule.MemberManager.getProjectMembers(
+    parseInt(route.params.id.toString())
+  );
+  console.log(res);
+  members.value = res.members;
+}
+getMembers();
 
 watch(route, () => {
-  getObjectives()
+  getProjectTree()
 })
 
 const projectTree = computed<ProjectTree[]>(() => {
@@ -47,6 +58,7 @@ const projectTree = computed<ProjectTree[]>(() => {
         activity_name: entry.activity_name,
         deadline: entry.deadline,
         estimated_hours: entry.estimated_hours,
+        activity_id: entry.activity_id,
       })
     }
     else {
@@ -57,6 +69,7 @@ const projectTree = computed<ProjectTree[]>(() => {
           activity_name: entry.activity_name,
           deadline: entry.deadline,
           estimated_hours: entry.estimated_hours,
+          activity_id: entry.activity_id,
         }] : []
       })
     }
@@ -75,31 +88,19 @@ const projectTree = computed<ProjectTree[]>(() => {
       </span>
       {{ projectsStore.currentProject?.name }}
     </h1>
-    <AddObjectiveDialog @refetch="getObjectives" v-if="options?.includes('InsertObjective')" />
+    <AddObjectiveDialog @refetch="getProjectTree" v-if="options?.includes('InsertObjective')" />
     <div>
-      <div class="flex flex-col gap-4">
-        <ul class="list-disc ml-10">
-          <li v-for="objective in projectTree" :key="objective.objective_id">
-            <p class="text-xl font-bold">
-              {{ objective.objective_name }}
-            </p>
-
-            <AddActivityDialog @refetch="getObjectives" :objectiveId="objective.objective_id" :objectiveName="objective.objective_name" />
-            <ul class="list-disc ml-10">
-              <li v-for="activity in objective.activities" :key="activity.activity_name">
-                <p class="text-lg">
-                  {{ activity.activity_name }}
-                </p>
-                <p>
-                  Fecha límite: {{ activity.deadline }}
-                </p>
-                <p>
-                  Horas estimadas: {{ activity.estimated_hours }}
-                </p>
-              </li>
-            </ul>
-          </li>
-        </ul>
+      <div class="grid grid-cols-2 gap-4">
+        <ObjectiveCard v-for="objective in projectTree" :objective="objective"
+          :projectId="parseInt(route.params.id.toString())" :key="objective.objective_id"
+          class="col-span-2 md:col-span-1">
+          <AddActivityDialog @refetch="getProjectTree" :objectiveId="objective.objective_id"
+            :objectiveName="objective.objective_name" :projectId="parseInt(route.params.id.toString())"
+            :projectTree="projectEntries"
+            :members="members"
+            v-if="options?.includes('InsertActivity')"
+            />
+        </ObjectiveCard>
       </div>
 
     </div>

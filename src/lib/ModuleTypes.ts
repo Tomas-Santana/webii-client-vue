@@ -7,6 +7,8 @@ import type {
   ProjectMenuName,
   Objective,
   ProjectTreeEntry,
+  Activity,
+  Assignment
 } from "./CustomTypes";
 
 export type CalculatorModuleType = {
@@ -95,14 +97,92 @@ export type ProjectModuleType = {
       estimatedHours: number
     ):
       | {
-          success: boolean;
+          success: false;
           message: string;
         }
       | {
-          success: boolean;
+          success: true;
           id: number;
         };
+    getActivitiesFromProject(projectId: number):
+      | {
+          success: false;
+          message: string;
+        }
+      | {
+          success: true;
+          data: Activity[];
+        };
+    createPrecedence(
+      precedingId: number,
+      subsequentId: number
+    ):
+      | {
+          success: false;
+          message: string;
+        }
+      | {
+          success: true;
+        };
+    deletePrecedence(
+      precedingId: number,
+      subsequentId: number
+    ):
+      | {
+          success: false;
+          message: string;
+        }
+      | {
+          success: true;
+        };
+    getActivity(activityId: number):
+      | {
+          success: false;
+          message: string;
+        }
+      | {
+          success: true;
+          data: Activity;
+        };
+    getActivityProgress(activityId: number):
+      | {
+          success: false;
+          message: string;
+        }
+      | {
+          success: true;
+          data: {
+            sum: number | null;
+          };
+        };
+    getPrecedingActivity(activityId: number):
+    | {
+        success: false;
+        message: string;
+      }
+    | {
+        success: true;
+        data: Activity[];
+      };
+    
   };
+  AssignmentManager: {
+    insertAssignment(memberId: number, activityId: number):
+      {
+        success: boolean;
+        message: string;
+      };
+    getActivityAssignments(activityId: number): {
+      success: boolean;
+      message: string;
+      assignments: Assignment[]
+    }
+    deleteAssignment(assignmentId: number): {
+      success: boolean;
+      message: string;
+    }
+
+  }
 };
 
 export type UserModuleType = {

@@ -11,6 +11,7 @@ export interface Member {
   cedula: number;
   email: string;
   description: string;
+  id: number;
 }
 
 export interface Person {
@@ -36,11 +37,13 @@ export interface Objective {
 export interface ProjectTreeEntry {
   objective_id: number;
   objective_name: string;
+  activity_id: number;
   activity_name: string;
   deadline: string;
   estimated_hours: number;
 }
 export interface Activity {
+  activity_id: number;
   activity_name: string;
   deadline: string;
   estimated_hours: number;
@@ -51,6 +54,15 @@ export interface ProjectTree {
   objective_name: string;
   activities: Activity[];
 }
+
+export interface Assignment {
+  first_name: string;
+  last_name: string;
+  cedula: number;
+  member_id: number;
+  id: number;
+}
+
 
 
 

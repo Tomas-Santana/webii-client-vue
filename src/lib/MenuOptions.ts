@@ -10,5 +10,5 @@ export type ProjectMenuName = "MembersView" | "ActivitiesView";
 export type ViewOptions = {
   ProjectsView: "CreateProject";
   MembersView: "DeleteMember" | "AddMember";
-  ActivitiesView: "InsertObjective";
+  ActivitiesView: "InsertObjective" | "InsertActivity";
 };

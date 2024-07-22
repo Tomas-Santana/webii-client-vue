@@ -7,90 +7,92 @@ import CreateResetPasswordView from '@/views/CreateResetPasswordView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import MiembrosView from '@/views/MiembrosView.vue'
 import PrincipalView from '@/views/PrincipalView.vue'
-import { isAuthenticated } from '@/lib/isAuthenticated'
 import ProyectosView from '@/views/ProyectosView.vue'
 import ActividadesView from '@/views/ActividadesView.vue'
 import TiempoView from '@/views/TiempoView.vue'
 import SelectProfileView from '@/views/SelectProfileView.vue'
+import ActivityView from '@/views/ActivityView.vue'
+import { isAuthenticated } from '@/lib/isAuthenticated'
+import { currentUserStore } from '@/stores/currentUserStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'index',
+      path: "/",
+      name: "index",
       component: IndexView,
       children: [
         {
-          path: ':id/miembros',
-          name: 'miembros',
-          component: MiembrosView
+          path: ":id/miembros",
+          name: "miembros",
+          component: MiembrosView,
         },
         {
-          path: '/principal',
-          name: 'principal',
-          component: PrincipalView
+          path: "/principal",
+          name: "principal",
+          component: PrincipalView,
         },
         {
-          path: '/proyecto',
-          name: 'proyecto',
-          component: ProyectosView
+          path: "/proyecto",
+          name: "proyecto",
+          component: ProyectosView,
         },
         {
-          path: ':id/actividades',
-          name: 'actividades',
-          component: ActividadesView
+          path: ":id/actividades",
+          name: "actividades",
+          component: ActividadesView,
         },
         {
-          path: ':id/tiempo',
-          name: 'tiempo',
-          component: TiempoView
-        }
-      ]
+          path: ":id/tiempo",
+          name: "tiempo",
+          component: TiempoView,
+        },
+        {
+          path: "/:projectId/actividad/:activityId",
+          name: "actividad",
+          component: ActivityView,
+        },
+      ],
     },
+
     {
-      path: ':projectId/actividades/:activityId',
-      name: 'actividad',
-      component: ActividadesView
-    },
-    {
-      path: '/login',
-      name: 'login',
+      path: "/login",
+      name: "login",
       component: LoginView,
-    }, 
-    // register 
+    },
+    // register
     {
-      path: '/register',
-      name: 'register',
+      path: "/register",
+      name: "register",
       component: RegisterView,
     },
     {
-      path: '/home',
-      name: 'home',
-      component: HomeView
+      path: "/home",
+      name: "home",
+      component: HomeView,
     },
     {
       path: "/select-profile",
       name: "select-profile",
-      component: SelectProfileView
+      component: SelectProfileView,
     },
     {
-      path: '/reset-password',
-      name: 'create-reset-password',
-      component: ResetPasswordView
+      path: "/reset-password",
+      name: "create-reset-password",
+      component: ResetPasswordView,
     },
     {
-      path: '/create-reset-password',
-      name: 'reset-password',
-      component: CreateResetPasswordView
-    }
-    
-  ]
-})
+      path: "/create-reset-password",
+      name: "reset-password",
+      component: CreateResetPasswordView,
+    },
+  ],
+});
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to, _from) => {
   const freeViews = ['login', 'register', 'create-reset-password', 'reset-password']
-  if (!freeViews.includes(to.name?.toString() ?? "") && !await isAuthenticated()) {
+  if (!freeViews.includes(to.name?.toString() ?? "") && (!await isAuthenticated() || !currentUserStore.id)) {
     return '/login'
   }
 })

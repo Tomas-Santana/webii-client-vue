@@ -23,15 +23,21 @@ import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller'
 import { type ProjectModuleType } from '@/lib/ModuleTypes'
 import apiRoutes from '@/apiRoutes'
 
-const emit = defineEmits(["refetch"])
+
+const emit = defineEmits<{
+  (e: 'refetch'): void
+  (e: 'insert', id: number): void
+}>()
 
 const props = defineProps<{
   objectiveId: number,
+  projectId: number,
 }>()
 
 const df = new DateFormatter('en-US', {
   dateStyle: 'long',
 })
+
 
 const formSchema = toTypedSchema(z.object({
   name: z
@@ -72,6 +78,7 @@ const onSubmit = handleSubmit(async (values) => {
   if (response.success) {
     toast.success('Actividad creada')
     emit('refetch')
+    emit('insert', response.id)
   }
   else {
     toast.error('Error al crear la actividad')
@@ -135,5 +142,5 @@ const onSubmit = handleSubmit(async (values) => {
     <Button type="submit">
       Crear actividad
     </Button>
-  </Form>
+  </form>
 </template>

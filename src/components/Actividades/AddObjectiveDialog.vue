@@ -33,7 +33,7 @@ watch(open, (newVal) => {
         Nuevo Objetivo
       </Button>
     </DialogTrigger>
-    <DialogContent class="sm:max-w-[425px]">
+    <DialogContent class="sm:max-w-xl">
       <DialogHeader>
         <DialogTitle>Agregar un nuevo miembro al proyecto</DialogTitle>
         <DialogDescription>
