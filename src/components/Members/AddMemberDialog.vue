@@ -53,7 +53,7 @@ const getRoles = async () => {
   const response = await ProjectModule.MemberManager.getAllRoles();
   console.log(response)
   if (response.success) {
-    roles.value = response.roles
+    roles.value = response.roles.filter(role => role.description !== "NoRole")
   }
 }
 getRoles()

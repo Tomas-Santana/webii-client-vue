@@ -22,6 +22,7 @@ const OptionModule = moduleCaller<OptionModuleType>(apiRoutes.toProcess, "Option
 const members = ref<Member[]>([]);
 
 const getMembers = async () => {
+  console.log(route.params.id.toString());
   const res = await ProjectModule.MemberManager.getProjectMembers(
     parseInt(route.params.id.toString())
   );

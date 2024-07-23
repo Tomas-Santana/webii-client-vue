@@ -134,7 +134,7 @@ watch(() => props.allowDelete, (newVal) => {
             <TableCell :colspan="columns.length" class="h-24 text-center">
               <div class="w-full grid place-items-center">
 
-                <LoaderCircle class="animate-spin"/>
+                No hay miembros en este proyecto
               </div>
             </TableCell>
           </TableRow>
