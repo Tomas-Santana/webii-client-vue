@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { projectsStore } from '@/stores/projectsStore';
-import ProjectSelect from './ProjectSelect.vue';
+import type { Project } from '@/lib/CustomTypes';
 
-
+const props = defineProps<{
+  projectId: number | null
+}>()
 
 console.log(projectsStore.currentProject)
 const getLink = (route: string) => {
@@ -16,24 +18,22 @@ const getLink = (route: string) => {
 </script>
 
 
-<template v-if="projectsStore.currentProject.id">
+<template >
   <RouterLink :to="getLink('miembros')" role="button" tabindex="0"
     class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none"
-    v-if="projectsStore.currentProject">
-    
+    >
+
     <div class="grid place-items-center mr-4">
     </div>Miembros
   </RouterLink>
   <RouterLink :to="getLink('actividades')" role="button" tabindex="0"
     class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none"
-    v-if="projectsStore.currentProject"
     >
     <div class="grid place-items-center mr-4">
     </div>Actividades
   </RouterLink>
   <RouterLink :to="getLink('tiempo')" role="button" tabindex="0"
     class="items-center font-medium text-slate-500 w-[360px] p-3 px-10 rounded-lg text-start leading-tight transition-all hover:bg-blue-50 hover:bg-opacity-80 focus:bg-blue-50 focus:bg-opacity-80 active:bg-blue-50 active:bg-opacity-80 hover:text-blue-900 focus:text-blue-900 active:text-blue-900 outline-none"
-    v-if="projectsStore.currentProject"
     >
     <div class="grid place-items-center mr-4">
     </div>Hoja de tiempo

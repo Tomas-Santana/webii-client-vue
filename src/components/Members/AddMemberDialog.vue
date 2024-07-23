@@ -68,14 +68,14 @@ watch(open, (newVal) => {
   }
 
 })
-const selectedRoleId = ref<string | null>(null)
+const selectedRoleId = ref<string>("")
 </script>
 
 <template>
   <Dialog v-model:open="open">
     <DialogTrigger as-child>
       <Button variant="outline">
-        Nuevo Recurso
+        Nuevo Miembro
       </Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">

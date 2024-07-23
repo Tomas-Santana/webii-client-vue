@@ -11,6 +11,7 @@ import { type Member } from '@/lib/CustomTypes';
 import AddMemberDialog from '@/components/Members/AddMemberDialog.vue';
 import { toast } from 'vue-sonner';
 import { type ViewOptions } from '@/lib/MenuOptions';
+import { projectsStore } from '@/stores/projectsStore';
 
 const route = useRoute();
 const {options: avOptions} = useProjectMenuOptions<ViewOptions["MembersView"]>("MembersView", parseInt(route.params.id.toString()));
@@ -42,12 +43,16 @@ watch(route, () => {
 
 
 <template>
-  <div class="flex flex-col gap-4 ">
+  <div class="flex flex-col gap-4 max-w-3xl">
+    <h1 class="text-5xl">
+      <span class="font-bold">
+        Miembros -
+      </span>
+      {{ projectsStore.currentProject?.name }}
+    </h1>
 
     <DataTableMembers :data="members" @refetch="getMembers()" :projectId="parseInt(route.params.id.toString())"
-    :allowDelete="allowDelete"  
-    
-     />
+      :allowDelete="allowDelete" />
     <AddMemberDialog @refetch="getMembers()" v-if="avOptions?.includes('AddMember')" :currentMembers="members" />
   </div>
 </template>

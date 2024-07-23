@@ -21,9 +21,11 @@ import DeleteMemberDialog from './DeleteMemberDialog.vue';
 import type { Assignment, Activity } from '@/lib/CustomTypes';
 import { RouterLink } from 'vue-router';
 import DeletePrecedenceDialog from './DeletePrecedenceDialog.vue';
+import type { ActivityAndProgress } from '@/lib/CustomTypes';
+import { Progress } from '@/components/ui/progress';
 
 const props = defineProps<{
-  precedence: Activity
+  precedence: ActivityAndProgress
   projectId: number,
   activityId: number
 }>()
@@ -38,8 +40,9 @@ const emit = defineEmits(["refetch"])
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="outline" class="" size="lg">
+      <Button variant="outline" class="rounded-full flex flex-col" size="lg">
         {{ props.precedence.activity_name }}
+
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-64">
@@ -49,14 +52,19 @@ const emit = defineEmits(["refetch"])
           Ir a la actividad
         </DropdownMenuItem>
       </RouterLink>
+      <DropdownMenuItem class="">
+        Progreso:  
+        <span class="font-bold"> {{ " " }} {{ props.precedence.progress ?? 0 }}%</span>
+      </DropdownMenuItem>
+
       <DropdownMenuSeparator />
-        <DeletePrecedenceDialog :precedingId="props.precedence.activity_id" :subsequentId="props.activityId"
-          @refetch="emit('refetch')">
-          <Button class="text-red-500 w-full justify-start p-2" variant="ghost">
-            <Trash class="w-4 h-4 mr-2" />
-            Eliminar prelacion
-          </Button>
-        </DeletePrecedenceDialog>
+      <DeletePrecedenceDialog :precedingId="props.precedence.activity_id" :subsequentId="props.activityId"
+        @refetch="emit('refetch')">
+        <Button class="text-red-500 w-full justify-start p-2" variant="ghost">
+          <Trash class="w-4 h-4 mr-2" />
+          Eliminar prelacion
+        </Button>
+      </DeletePrecedenceDialog>
 
     </DropdownMenuContent>
   </DropdownMenu>

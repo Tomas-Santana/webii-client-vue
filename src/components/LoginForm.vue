@@ -50,6 +50,7 @@ const onSubmit = form.handleSubmit(async (values) => {
                 email: string,
                 first_name: string,
                 last_name: string,
+                personId: number
             }
         }
         const data: LoginResponse = await response.json()
@@ -59,6 +60,7 @@ const onSubmit = form.handleSubmit(async (values) => {
             currentUserStore.first_name = data.userInfo.first_name
             currentUserStore.last_name = data.userInfo.last_name
             currentUserStore.id = data.userInfo.id
+            currentUserStore.personId = data.userInfo.personId
             router.push('/select-profile')
 
         } else {

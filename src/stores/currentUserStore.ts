@@ -6,5 +6,6 @@ export const currentUserStore = reactive({
   last_name: "",
   email: "",
   id: 0,
-  role: ""
+  role: "",
+  personId: 0,
 })

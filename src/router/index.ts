@@ -12,6 +12,8 @@ import ActividadesView from '@/views/ActividadesView.vue'
 import TiempoView from '@/views/TiempoView.vue'
 import SelectProfileView from '@/views/SelectProfileView.vue'
 import ActivityView from '@/views/ActivityView.vue'
+import PeopleView from '@/views/PeopleView.vue'
+import RolesView from '@/views/RolesView.vue'
 import { isAuthenticated } from '@/lib/isAuthenticated'
 import { currentUserStore } from '@/stores/currentUserStore'
 
@@ -37,6 +39,16 @@ const router = createRouter({
           path: "/proyecto",
           name: "proyecto",
           component: ProyectosView,
+        },
+        {
+          path: "/personas",
+          name: "personas",
+          component: PeopleView,
+        },
+        {
+          path: "/roles",
+          name: "roles",
+          component: RolesView,
         },
         {
           path: ":id/actividades",

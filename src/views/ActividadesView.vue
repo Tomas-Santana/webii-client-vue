@@ -11,6 +11,10 @@ import type { ViewOptions } from '@/lib/MenuOptions';
 import { useProjectMenuOptions } from '@/lib/useMenuOptions';
 import AddActivityDialog from '@/components/Actividades/AddActivityDialog.vue';
 import ObjectiveCard from '@/components/Actividades/ObjectiveCard.vue';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { currentUserStore } from '@/stores/currentUserStore';
+import DeleteObjectiveDialog from '@/components/Actividades/DeleteObjectiveDialog.vue';
+import EditObjectiveDialog from '@/components/Actividades/EditObjectiveDialog.vue';
 
 const ProjectModule = moduleCaller<ProjectModuleType>(apiRoutes.toProcess, "ProjectModule");
 const projectEntries = ref<ProjectTreeEntry[]>([])
@@ -32,6 +36,18 @@ const getProjectTree = async () => {
   }
 }
 getProjectTree()
+
+const assignedActivitiesIds = ref<number[]>([])
+const getMyAssignedActivitiesIds = async () => {
+  const res = await ProjectModule.AssignmentManager.getMemberAssignedActivitiesIds(
+    currentUserStore.personId,
+    parseInt(route.params.id.toString())
+  )
+  if (res.success) {
+    assignedActivitiesIds.value = res.activityIds
+  }
+}
+getMyAssignedActivitiesIds()
 
 const members = ref<Member[]>([]);
 const getMembers = async () => {
@@ -81,8 +97,8 @@ const projectTree = computed<ProjectTree[]>(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 items-start">
-    <h1 class="text-3xl">
+  <div class=" space-y-4 items-start">
+    <h1 class="text-5xl">
       <span class="font-bold">
         Objetivos y Actividades -
       </span>
@@ -90,18 +106,30 @@ const projectTree = computed<ProjectTree[]>(() => {
     </h1>
     <AddObjectiveDialog @refetch="getProjectTree" v-if="options?.includes('InsertObjective')" />
     <div>
-      <div class="grid grid-cols-2 gap-4">
-        <ObjectiveCard v-for="objective in projectTree" :objective="objective"
-          :projectId="parseInt(route.params.id.toString())" :key="objective.objective_id"
-          class="col-span-2 md:col-span-1">
-          <AddActivityDialog @refetch="getProjectTree" :objectiveId="objective.objective_id"
-            :objectiveName="objective.objective_name" :projectId="parseInt(route.params.id.toString())"
-            :projectTree="projectEntries"
-            :members="members"
-            v-if="options?.includes('InsertActivity')"
-            />
-        </ObjectiveCard>
-      </div>
+      <ScrollArea class="border rounded-md w-full whitespace-nowrap">
+        <div class="flex p-4 space-x-4 ">
+          <ObjectiveCard v-for="objective in projectTree" :objective="objective"
+            :projectId="parseInt(route.params.id.toString())" :key="objective.objective_id"
+            :assigned-activities-ids="assignedActivitiesIds"
+            >
+            <template v-slot:header>
+
+              <AddActivityDialog @refetch="getProjectTree" :objectiveId="objective.objective_id"
+                :objectiveName="objective.objective_name" :projectId="parseInt(route.params.id.toString())"
+                :projectTree="projectEntries" :members="members" v-if="options?.includes('InsertActivity')"
+              />
+            </template>
+            <template v-slot:footer>
+              <DeleteObjectiveDialog @refetch="getProjectTree" :objectiveId="objective.objective_id"
+              v-if="options?.includes('DeleteObjective')"/>
+              <EditObjectiveDialog @refetch="getProjectTree" :objective="objective"
+              v-if="options?.includes('EditObjective')"/>
+
+            </template>
+          </ObjectiveCard>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
 
     </div>
   </div>

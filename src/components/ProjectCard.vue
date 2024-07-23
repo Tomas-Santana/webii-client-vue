@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { Project } from '@/lib/CustomTypes';
 const props = defineProps<{
-  project: Project
+  project: Project,
+  canDelete: boolean
 }>()
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from './ui/card';
 import DeleteProjectDialog from './DeleteProjectDialog.vue';
 import { RouterLink } from 'vue-router';
 import { projectsStore } from '@/stores/projectsStore';
 import { currentUserStore } from '@/stores/currentUserStore';
+import { Badge } from './ui/badge';
+import { Calendar, Clock } from 'lucide-vue-next';
 
 const emit = defineEmits(['refetch'])
 
@@ -25,7 +28,7 @@ console.log(props.project)
   <Card>
     <CardHeader>
       <CardTitle>
-        <RouterLink :to="'/' + project.id + '/miembros'" @click="handleClick()" class="hover:underline">
+        <RouterLink :to="'/' + project.id + '/actividades'" @click="handleClick()" class="hover:underline">
           {{ project.name }}
         </RouterLink>
 
@@ -33,11 +36,12 @@ console.log(props.project)
       <span>
         #{{ project.id }}
       </span>
-      <CardContent>
-        <p>Estado: {{ project.state }}</p>
-        <p>Creado: {{
-          createdAt.toLocaleDateString() + " " + createdAt.toLocaleTimeString()
-          }}</p>
+      <CardContent class="p-2">
+        <Badge variant="secondary" >
+          <Clock class="mr-2" :size="16"/>
+          Creado: {{
+          createdAt.toLocaleDateString()
+          }}</Badge>
       </CardContent>
     </CardHeader>
     <CardFooter>

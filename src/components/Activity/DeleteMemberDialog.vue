@@ -45,7 +45,7 @@ const deleteAssignment = async () => {
 
 <template>
   <AlertDialog
-    @update:open="console.log" 
+ 
   >
     <AlertDialogTrigger as-child>
       <slot />

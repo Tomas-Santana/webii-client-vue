@@ -3,7 +3,7 @@ import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
 import type { ProjectModuleType, OptionModuleType } from '@/lib/ModuleTypes';
 import apiRoutes from '@/apiRoutes';
 import { toast } from 'vue-sonner';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { Project } from '@/lib/CustomTypes';
 import ProjectCard from '@/components/ProjectCard.vue';
 import NewProjectDialog from '@/components/NewProjectDialog.vue';
@@ -47,12 +47,14 @@ const getOptions = async () => {
   avOptions.value = res.data as ProjectsViewOptions[];
 
 }
+
+const canDeleteProyect = computed(() => avOptions.value.includes('DeleteProject'));
 getOptions();
 
 </script>
 <template>
   <div class="flex flex-col items-start gap-4">
-    <h1 class="text-3xl font-bold">Proyectos</h1>
+    <h1 class="text-5xl font-bold">Proyectos</h1>
     <NewProjectDialog @refetch="getProjects(filter)" v-if="avOptions.includes('CreateProject')" />
 
     <Input v-model="filter" placeholder="Filtrar por nombre" />
@@ -62,7 +64,9 @@ getOptions();
       <ProjectCard v-for="project in projectsStore.projects" 
         key="project.id" 
         :project="project"
-        @refetch="getProjects(filter)" class="col-span-1" />
+        @refetch="getProjects(filter)" class="col-span-1"
+        :can-delete="canDeleteProyect"
+        />
     </div>
   </div>
 </template>

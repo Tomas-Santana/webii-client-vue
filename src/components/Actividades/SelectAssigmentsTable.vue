@@ -53,7 +53,7 @@ const columns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: "cedula",
-    header: "Horas estimadas",
+    header: "Cedula",
     id: "estimated_hours",
   },
   {
@@ -62,7 +62,7 @@ const columns: ColumnDef<Member>[] = [
   },
   {
     accessorKey: "last_name",
-    header: "Fecha límite",
+    header: "Apellido",
   },
 
 

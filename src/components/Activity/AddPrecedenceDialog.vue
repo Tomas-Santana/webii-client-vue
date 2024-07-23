@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+
 import { moduleCaller } from '@/lib/ModuleCaller/ModuleCaller';
 import { type ProjectModuleType } from '@/lib/ModuleTypes';
 

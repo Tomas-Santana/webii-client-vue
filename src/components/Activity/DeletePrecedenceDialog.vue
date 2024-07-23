@@ -48,7 +48,7 @@ const deletePrecedence = async () => {
 </script>
 
 <template>
-  <AlertDialog @update:open="console.log">
+  <AlertDialog >
     <AlertDialogTrigger as-child>
       <slot />
     </AlertDialogTrigger>

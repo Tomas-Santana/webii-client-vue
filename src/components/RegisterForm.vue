@@ -48,7 +48,7 @@ const onSubmit = form.handleSubmit(async (values) => {
         const data = await response.json()
         console.log(data)
         if (response.ok) {
-            router.push('/select-profile')
+            router.push('/login')
         } else {
             toast.error(data.message)
         }

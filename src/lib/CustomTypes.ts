@@ -12,6 +12,7 @@ export interface Member {
   email: string;
   description: string;
   id: number;
+  person_id: number;
 }
 
 export interface Person {
@@ -25,9 +26,6 @@ export interface Role {
   description: string;
 }
 
-export interface Option {
-  name: string;
-}
 
 export interface Objective {
   name: string;
@@ -61,11 +59,63 @@ export interface Assignment {
   cedula: number;
   member_id: number;
   id: number;
+  person_id: number;
+}
+
+export type ActivityAndProgress = Activity & {
+  progress?: number;
+};
+
+export interface Update {
+  id: number;
+  assignment_id: number;
+  description: string;
+  percentage: number;
+  worked_hours: number;
+  created_at: string;
+  person_id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface Option {
+  menu_id: number;
+  menu_name: string;
+  name: string;
+  id: number;
+}
+
+export interface SimpleOption {
+  name: string;
+  id: number;
+}
+
+export interface Menu {
+  name: string;
+  id: number;
+  options: {
+    name: string;
+    id: number;
+  }[];
+}
+
+export interface Profile {
+  id: number;
+  description: string;
+}
+
+export interface User {
+  person_id: number;
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  
 }
 
 
 
 
-export type MenuName = "ProjectsView" ;
-export type ProjectMenuName = "MembersView" | "ActivitiesView"
+export type MenuName = "ProjectsView" | "Sidebar" ;
+export type ProjectMenuName = "MembersView" | "ActivitiesView" | "ActivityView" ;
 export type ProjectRole = "Project Manager" | "Recurso"

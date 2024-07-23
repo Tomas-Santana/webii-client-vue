@@ -9,6 +9,7 @@ import { RouterLink, useRouter } from 'vue-router';
 import AdminProfile from '@/assets/profile-pics/admin.png'
 import ProjectManagerProfile from '@/assets/profile-pics/project-manager.png'
 import UserProfile from '@/assets/profile-pics/user.png'
+import NormalProfile from '@/assets/profile-pics/normal-profile.jpg'
 import { toast } from 'vue-sonner';
 
 const UserModule = moduleCaller<UserModuleType>(apiRoutes.toProcess, 'UserModule');
@@ -37,9 +38,17 @@ const switchRoles = async (role: Role) => {
 }
 
 const rolesAndImages = {
+  1: NormalProfile,
+  2: NormalProfile,
+  3: UserProfile,
   4: UserProfile,
   5: ProjectManagerProfile,
   6: AdminProfile,
+}
+
+const imageSrc = (role: Role) => {
+  // if role.id is not in rolesAndImages, return NormalProfile
+  return rolesAndImages[role.id] || NormalProfile;
 }
 </script>
 
@@ -55,7 +64,7 @@ const rolesAndImages = {
       <button v-for="role in roles" :key="role.id" class="rounded-md flex flex-col gap-2 items-center hover:scale-95 transition-transform"
         @click="switchRoles(role)"
       >
-        <img :src="rolesAndImages[role.id]" alt="role.name" class="rounded-sm w-40 shadow-lg" />
+        <img :src="imageSrc(role)" alt="role.name" class="rounded-sm w-40 shadow-lg" />
         <p class="text-xl">{{ role.description }}</p>
       </button>
     </div>

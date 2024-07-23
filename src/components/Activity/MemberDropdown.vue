@@ -34,13 +34,23 @@ const initials = computed(() => {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="ghost" class="aspect-square rounded-full ">
-        <Avatar size="sm" class="border">
-          <AvatarFallback>
-            {{ initials }}
-          </AvatarFallback>
-        </Avatar>
-      </Button>
+      <div 
+        :title="props.assignment.first_name + ' ' + props.assignment.last_name"
+        class=" "
+      >
+
+        <Button variant="ghost" class="aspect-square rounded-full p-0"
+        
+        >
+          <Avatar size="sm" class="border" 
+  
+          >
+            <AvatarFallback>
+              {{ initials }}
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </div>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-64">
       <DropdownMenuLabel class="flex justify-between items-center">
