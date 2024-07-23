@@ -19,17 +19,38 @@ const filter = ref<string>("");
 
 const avOptions = ref<ProjectsViewOptions[]>([]);
 
+const getOptions = async () => {
+  const res = await OptionModule.OptionManager.getMenuOptions("ProjectsView");
+  if (!res.success) {
+    toast.error(res.message);
+  }
+  // add all options to the avOptions array
+  console.log(res.data);
+  avOptions.value = res.data as ProjectsViewOptions[];
+
+}
+
+getOptions();
+
 const getProjects = async (name: string = "") => {
   let res = null
-  if (name === "") {
-    res = await ProjectModule.ProjectManager.getProjects();
+  if (avOptions.value.includes('ViewAllProjects')) {
+    console.log("ViewAllProjects");
+    if (name === "") {
+      res = await ProjectModule.ProjectManager.getAllProjects();
+    } else {
+      res = await ProjectModule.ProjectManager.getAllProjectsFromName(name);
+    }
   } else {
-    res = await ProjectModule.ProjectManager.getProjectsFromName(name);
+    if (name === "") {
+      res = await ProjectModule.ProjectManager.getProjects();
+    } else {
+      res = await ProjectModule.ProjectManager.getProjectsFromName(name);
+    }
   }
   if (!res.success) {
     toast.error(res.message);
   }
-  console.log("proyectos", res);
   projectsStore.projects = res.projects;
 
 }
@@ -38,18 +59,12 @@ watch(filter, (newVal) => {
   getProjects(newVal);
 });
 
-const getOptions = async () => {
-  const res = await OptionModule.OptionManager.getMenuOptions("ProjectsView");
-  if (!res.success) {
-    toast.error(res.message);
-  }
-  // add all options to the avOptions array
-  avOptions.value = res.data as ProjectsViewOptions[];
+watch(avOptions, () => {
+  getProjects(filter.value);
+});
 
-}
 
 const canDeleteProyect = computed(() => avOptions.value.includes('DeleteProject'));
-getOptions();
 
 </script>
 <template>

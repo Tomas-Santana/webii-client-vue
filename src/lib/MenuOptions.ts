@@ -1,4 +1,4 @@
-export type ProjectsViewOptions = "CreateProject" |"DeleteProject";
+export type ProjectsViewOptions = "CreateProject" |"DeleteProject" | "ViewAllProjects";
 
 export type MembersViewOptions = "DeleteMember" | "AddMember";
 

@@ -45,7 +45,7 @@ console.log(props.project)
       </CardContent>
     </CardHeader>
     <CardFooter>
-      <DeleteProjectDialog :projectId="project.id" @refetch="emit('refetch')" v-if="project.profile=='Project Manager' || currentUserStore.role == 'Admin'" />
+      <DeleteProjectDialog :projectId="project.id" @refetch="emit('refetch')" v-if="canDelete" />
     </CardFooter>
 
   </Card>
